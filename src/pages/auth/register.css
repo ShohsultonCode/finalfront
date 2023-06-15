@@ -1,0 +1,48 @@
+/* Add the following CSS code to your 'register.css' file */
+
+/* Responsive styles */
+@media (max-width: 576px) {
+    .card-registration {
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+    .card-registration {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    .card-registration {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .card-registration {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-registration {
+        max-width: 1140px;
+    }
+}
+
+/* Adjust form elements for smaller screens */
+@media (max-width: 576px) {
+    .form-outline {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-check {
+        margin-bottom: 1.5rem;
+    }
+
+    .select {
+        margin-bottom: 1.5rem;
+    }
+}
