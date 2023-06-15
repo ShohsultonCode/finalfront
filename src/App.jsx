@@ -11,8 +11,8 @@ import ProfilePage from './pages/profile';
 import FeaturedProducts from './components/recentproducts';
 import SingleProduct from './pages/ProductsSingle';
 
-
 const App = () => {
+  console.log(process.env.api);
   return (
     <div className='site-wrap'>
       <Navbar />

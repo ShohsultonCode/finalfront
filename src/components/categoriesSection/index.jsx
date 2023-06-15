@@ -8,8 +8,8 @@ import BigSale from '../sale';
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-
 const CollectionsSection = () => {
+
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
