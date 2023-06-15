@@ -18,7 +18,7 @@ const CollectionsSection = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('http://13.50.100.201/api/categories');
+            const response = await axios.get('https://shohsulton.uz/api/categories');
             setCategories(response.data.data);
         } catch (error) {
             console.error('Error fetching categories:', error);

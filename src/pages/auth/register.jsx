@@ -63,7 +63,7 @@ const RegisterPage = () => {
 
         // Send form data to the backend
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/register", formData);
+            const response = await axios.post("https://shohsulton.uz/api/auth/register", formData);
             // Handle the response as needed
             localStorage.setItem("token", response.data.token)
             toast.success(`${response.data.message}`, {
