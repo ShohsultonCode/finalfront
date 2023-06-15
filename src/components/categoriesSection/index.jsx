@@ -88,7 +88,7 @@ const CollectionsSection = () => {
                             >
                                 <Link className="block-2-item" to="#">
                                     <figure className="image">
-                                        <img src={`http://13.50.100.201/api/images/${category.category_image}`} alt="" className="img-fluid" />
+                                        <img src={`https://shohsulton.uz/api/images/${category.category_image}`} alt="" className="img-fluid" />
                                     </figure>
                                     <div className="text">
                                         <span className="text-uppercase">Collections</span>
