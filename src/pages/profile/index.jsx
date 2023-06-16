@@ -14,11 +14,26 @@ const ProfilePage = () => {
     const [statis, setStatis] = useState(null);
     const token = localStorage.getItem('token');
 
+    if (!token) {
+        window.location.href = '/login'
+    }
+
     useEffect(() => {
         if (token) {
             fetchUser();
         }
     }, [token]);
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+
+        toast.success('Log out succsessfuly', {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 2000);
+    };
 
     const fetchUser = async () => {
         try {
@@ -54,6 +69,7 @@ const ProfilePage = () => {
 
     return (
         <section className="gradient-custom-2">
+            <ToastContainer />
             <div className="containe w-100 py-5 h-100 d-flex justify-content-center align-items-center ">
                 <div className="row w-75 d-flex justify-content-center align-items-center ">
                     <div className="col  w-100">
@@ -69,6 +85,7 @@ const ProfilePage = () => {
                                     <Link to="/update/profile" type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" style={{ zIndex: 1 }}>
                                         Edit profile
                                     </Link>
+
 
 
                                 </div>
@@ -88,12 +105,19 @@ const ProfilePage = () => {
                                         <p className="mb-1 h5">{statis.ownproduct.length}</p>
                                         <p className="small text-muted mb-0">Buy Products</p>
                                     </div>
+
+
                                 </div>
+
                             </div>
                             <div className="card-body p-4 text-black">
                                 <div className="mb-5">
-                                    <p className="lead fw-normal mb-1">Description</p>
-                                    <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
+                                    <button className="btn btn-outline-dark" onClick={handleLogout} style={{ zIndex: 1, float: "right" }}>
+                                        Log Out
+                                    </button>
+                                    <h2>You Balance: ${user.user_payment}</h2>
+                                    <p className="lead fw-normal mt-5 mb-1">Description</p>
+                                    <div className="p-4 mt-3" style={{ backgroundColor: '#f8f9fa' }}>
                                         <p className="font-italic mb-1">{user.user_description}</p>
                                     </div>
                                 </div>

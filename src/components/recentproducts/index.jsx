@@ -4,8 +4,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style.scss';
 import axios from 'axios';
 
-const FeaturedProducts = () => {
+const index = () => {
    const [products, setProducts] = useState([]);
+   const [cartItems, setCartItems] = useState([]);
+   const token = localStorage.getItem('token');
 
    useEffect(() => {
       const fetchProducts = async () => {
@@ -22,6 +24,38 @@ const FeaturedProducts = () => {
 
       fetchProducts();
    }, []);
+
+   useEffect(() => {
+      const fetchCartItems = () => {
+         const storedCartItems = localStorage.getItem('cartItems');
+         if (storedCartItems) {
+            setCartItems(JSON.parse(storedCartItems));
+         }
+      };
+
+      fetchCartItems();
+   }, []);
+
+   const addToCart = (product) => {
+      if (token) {
+         const updatedCartItems = [...cartItems, product];
+         setCartItems(updatedCartItems);
+         localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+         toast.success('Added to cart', {
+            position: toast.POSITION.TOP_RIGHT,
+         });
+      } else {
+         toast.error('Please login to add to cart', {
+            position: toast.POSITION.TOP_RIGHT,
+         });
+      }
+   };
+
+   const removeFromCart = (productId) => {
+      const updatedCartItems = cartItems.filter((item) => item._id !== productId);
+      setCartItems(updatedCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+   };
 
    return (
       <div className="site-section block-3 site-blocks-2 bg-light">
@@ -50,6 +84,7 @@ const FeaturedProducts = () => {
                                  </h3>
                                  <p className="mb-0">{product.product_description}</p>
                                  <p className="text-primary font-weight-bold">${product.product_price}</p>
+                                 <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
                               </div>
                            </div>
                         </div>
@@ -58,8 +93,10 @@ const FeaturedProducts = () => {
                </div>
             </div>
          </div>
+         <ToastContainer />
       </div>
+
    );
 };
 
-export default FeaturedProducts;
+export default index

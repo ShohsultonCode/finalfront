@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/mycategories" element={<CategorisAuth />} />
         <Route path="/recent/products" element={<FeaturedProducts />} />
-        <Route path="/single/" element={<SingleProduct />} />
+        <Route path="/single/:id" element={<SingleProduct />} />
       </Routes>
       <Footer />
     </div>
