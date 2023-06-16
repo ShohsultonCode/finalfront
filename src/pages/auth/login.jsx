@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         user_username: '',
         user_password: ''
@@ -29,11 +28,11 @@ const LoginPage = () => {
 
             setTimeout(() => {
                 if (response.data.role === "admin") {
-                    navigate("/admin/dashboard");
+                    window.location.href = '/admin/dashboard';
                 } else if (response.data.role === "user") {
-                    navigate("/");
+                    window.location.href = '/'
                 }
-            }, 3000);
+            }, 2000);
         } catch (error) {
             toast.error(`${error.response.data.message}`, {
                 position: toast.POSITION.TOP_RIGHT

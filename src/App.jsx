@@ -9,7 +9,9 @@ import RegisterPage from './pages/auth/register';
 import LoginPage from './pages/auth/login';
 import ProfilePage from './pages/profile';
 import FeaturedProducts from './components/recentproducts';
+import CategorisAuth from './components/categories';
 import SingleProduct from './pages/ProductsSingle';
+import UpdatePage from './pages/editprofile';
 
 const App = () => {
   return (
@@ -20,8 +22,10 @@ const App = () => {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/update/profile" element={<UpdatePage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/mycategories" element={<CategorisAuth />} />
         <Route path="/recent/products" element={<FeaturedProducts />} />
         <Route path="/single/" element={<SingleProduct />} />
       </Routes>

@@ -3,17 +3,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import './register.css';
-import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
-    const navigate = useNavigate()
     const [categories, setCategories] = useState([]);
     const [formData, setFormData] = useState({
         user_first_name: '',
         user_last_name: '',
         user_username: '',
         user_password: '',
-        user_categories: []
     });
     const [formError, setFormError] = useState('');
 
@@ -33,12 +30,7 @@ const RegisterPage = () => {
         const { name, value } = event.target;
 
         // Handle category selection separately
-        if (name === 'user_categories') {
-            const selectedCategoryId = value
-            setFormData({ ...formData, user_categories: [selectedCategoryId] });
-        } else {
-            setFormData({ ...formData, [name]: value });
-        }
+        setFormData({ ...formData, [name]: value });
     };
 
 
@@ -50,8 +42,7 @@ const RegisterPage = () => {
             formData.user_first_name.trim() === '' ||
             formData.user_last_name.trim() === '' ||
             formData.user_username.trim() === '' ||
-            formData.user_password.trim() === '' ||
-            formData.user_categories.length === 0
+            formData.user_password.trim() === ''
         ) {
             // Display toast notification for form validation
             toast.error('Please fill in all fields', {
@@ -72,11 +63,11 @@ const RegisterPage = () => {
 
             setTimeout(() => {
                 if (response.data.role === "admin") {
-                    window.location.href("/admin/dashboard")
+                    window.location.href = '/admin/dashboard'
                 } else if (response.data.role === "user") {
-                    window.location.href("/")
+                    window.location.href = '/'
                 }
-            }, 3000);
+            }, 2000);
 
         } catch (error) {
             if (error.response.data.statusCode === 400) {
@@ -125,20 +116,6 @@ const RegisterPage = () => {
                                                 <input type="password" id="password" name="user_password" className="form-control form-control-lg" value={formData.user_password} onChange={handleInputChange} />
                                                 <label className="form-label" htmlFor="password">Password</label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <select className="select form-control-lg" name="user_categories" value={formData.user_categories[0]} onChange={handleInputChange}>
-                                                <option value="">Choose category</option>
-                                                {categories.map((category) => (
-                                                    <option key={category._id} value={category._id}>
-                                                        {category.category_name}
-                                                    </option>
-                                                ))}
-                                            </select>
-
-                                            <label className="form-label select-label mx-5">Choose category</label>
                                         </div>
                                     </div>
                                     <div className="mt-4 pt-2">

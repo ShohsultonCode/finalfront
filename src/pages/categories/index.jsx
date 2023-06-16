@@ -21,9 +21,7 @@ const CollectionsSection = () => {
             const response = await axios.get('https://shohsulton.uz/api/categories');
             setCategories(response.data.data);
         } catch (error) {
-            toast.error('Something went wrong', {
-                position: toast.POSITION.TOP_RIGHT,
-            });
+            console.error('Error fetching categories:', error);
         }
     };
 

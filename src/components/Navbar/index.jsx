@@ -29,10 +29,9 @@ const Header = () => {
                            <div className="site-top-icons">
                               <ul>
                                  <li><Link to="/profile"><span className="icon icon-person"></span></Link></li>
-                                 <li><Link to="/likes"><span className="icon icon-heart-o"></span></Link></li>
                                  <li>
                                     <Link to="/cart" className="site-cart">
-                                       <span className="icon icon-save"></span>
+                                       <span className="icon icon-shopping_cart"></span>
                                     </Link>
                                  </li>
                                  <li className="d-inline-block d-md-none ml-md-0"><Link to="#" className="site-menu-toggle js-menu-toggle"><span className="icon-menu"></span></Link></li>
@@ -53,14 +52,28 @@ const Header = () => {
             </div>
             <nav className="site-navigation text-right text-md-center" role="navigation">
                <div className="container">
-                  <ul className="site-menu js-clone-nav d-none d-md-block">
-                     <li className="children active">
-                        <Link to="/">Home</Link>
-                     </li>
-                     <li><Link to="/shop">Shop</Link></li>
-                     <li><Link to="/mycategories">Your Categories</Link></li>
-                     <li><Link to="/add/product">Add Products</Link></li>
-                  </ul>
+                  {
+                     hasToken ? (
+                        <ul className="site-menu js-clone-nav d-none d-md-block">
+                           <li className="children">
+                              <Link to="/">Home</Link>
+                           </li>
+                           <li><Link to="/shop">Shop</Link></li>
+                           <li><Link to="/mycategories">Your Categories</Link></li>
+                           <li><Link to="/add/product">All Products</Link></li>
+                        </ul>
+                     )
+                        : (
+                           <ul className="site-menu js-clone-nav d-none d-md-block">
+                              <li className="children">
+                                 <Link to="/">Home</Link>
+                              </li>
+                              <li><Link to="/shop">Shop</Link></li>
+                              <li><Link to="/mycategories">Categories</Link></li>
+                              <li><Link to="/add/product">Contact</Link></li>
+                           </ul>
+                        )
+                  }
                </div>
             </nav>
          </header>
