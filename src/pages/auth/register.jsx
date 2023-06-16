@@ -72,9 +72,9 @@ const RegisterPage = () => {
 
             setTimeout(() => {
                 if (response.data.role === "admin") {
-                    navigate("/admin/dashboard")
+                    window.location.href("/admin/dashboard")
                 } else if (response.data.role === "user") {
-                    navigate("/")
+                    window.location.href("/")
                 }
             }, 3000);
 
