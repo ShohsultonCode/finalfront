@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const FeaturedProducts = () => {
    const [products, setProducts] = useState([]);
@@ -6,9 +7,9 @@ const FeaturedProducts = () => {
    useEffect(() => {
       const fetchProducts = async () => {
          try {
-            const response = await fetch('https://shohsulton.uz/api/lastproducts');
-            const data = await response.json();
-            setProducts(data.data.data);
+            const response = await axios.get('https://shohsulton.uz/api/lastproducts');
+            const data = response.data.data;
+            setProducts(data);
          } catch (error) {
             console.error('Error fetching products:', error);
          }
@@ -32,7 +33,7 @@ const FeaturedProducts = () => {
                         <div className="item" key={product._id}>
                            <div className="block-4 text-center">
                               <figure className="block-4-image">
-                                 <img src={product.product_image} alt="Product Image" className="img-fluid" />
+                                 <img src={`https://shohsulton.uz/api/images/${product.product_image}`} alt="Product Image" className="img-fluid" />
                               </figure>
                               <div className="block-4-text p-4">
                                  <h3><a href="#">{product.product_name}</a></h3>
