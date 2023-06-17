@@ -44,7 +44,7 @@ const index = () => {
       };
 
       axios
-         .post(`http://localhost:5000/api/addcart`, { cart_product: productId }, config)
+         .post(`https://shohsulton.uz/api/addcart`, { cart_product: productId }, config)
          .then((response) => {
             toast.success('Product added to cart!');
          })
@@ -72,15 +72,16 @@ const index = () => {
             </div>
             <div className="row justify-content-center">
                <div className="col-md-12">
-                  <div className="nonloop-block-3 owl-carousel">
+                  <div className="nonloop-block-3 owl-carousel gap-5">
                      {products.map((product) => (
-                        <div className="item" key={product._id}>
-                           <div className="block-4 text-center">
+                        <div className="block-4 text-center border" key={product._id}>
+                           <div className="block-4-image">
                               <figure className="block-4-image">
                                  <img
                                     src={`https://shohsulton.uz/api/images/${product.product_image}`}
                                     alt="Product Image"
-                                    className="block-4-img"
+                                    style={{ height: '200px', objectFit: 'cover' }}
+                                    className="img-fluid"
                                  />
                               </figure>
                               <div className="block-4-text p-4">

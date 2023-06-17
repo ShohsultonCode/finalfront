@@ -1,4 +1,5 @@
 import React from 'react';
+import Private from './private/Private'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -30,14 +31,11 @@ const App = () => {
         <Route path="/mycategories" element={<CategorisAuth />} />
         <Route path="/recent/products" element={<FeaturedProducts />} />
         <Route path="/single/:id" element={<SingleProduct />} />
-
-
-
-
-
+        <Route path='*' element={<Private />} />
       </Routes>
       <Footer />
     </div>
+
   );
 };
 

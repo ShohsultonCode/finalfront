@@ -3,7 +3,7 @@ import React from 'react';
 const Private = () => {
    return (
       <div>
-         {/* priavte routes  */}
+         <h1>N404</h1>
       </div>
    );
 };

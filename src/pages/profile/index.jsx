@@ -13,6 +13,9 @@ const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [statis, setStatis] = useState(null);
     const token = localStorage.getItem('token');
+    const productsPerPage = 3; // Number of products to display per page
+    const [currentPage, setCurrentPage] = useState(1);
+
 
     if (!token) {
         window.location.href = '/login'
@@ -42,7 +45,6 @@ const ProfilePage = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.data.status);
             setUser(response.data.data);
             setStatis(response.data.status);
         } catch (error) {
@@ -59,14 +61,19 @@ const ProfilePage = () => {
         );
     }
 
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
     };
+
+    // Calculate the index range for products to be displayed on the current page
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = statis.ownproduct.slice(
+        indexOfFirstProduct,
+        indexOfLastProduct
+    );
+
+    const totalPages = Math.ceil(statis.ownproduct.length / productsPerPage);
 
     return (
         <section className="gradient-custom-2">
@@ -124,32 +131,59 @@ const ProfilePage = () => {
                                 <div className="d-flex justify-content-between align-items-center mb-4">
                                     <p className="lead fw-normal mb-0">My Products</p>
                                 </div>
-                                <Slider {...settings}>
-                                    {statis.ownproduct.map((product) => (
-                                        <div key={product.id}>
-                                            <div className="col-sm-6 col-lg-4 mb-4" key={product.sell_product._id}>
-                                                <div className="block-4 text-center border">
-                                                    <figure className="block-4-image">
-                                                        <img
-                                                            src={`https://shohsulton.uz/api/images/${product.sell_product.product_image}`}
-                                                            alt="Product Image"
-                                                            className="img-fluid"
-                                                            style={{ height: '200px', objectFit: 'cover' }}
+                                <div className="row">
 
-                                                        />
-                                                    </figure>
-                                                    <div className="block-4-text p-4">
-                                                        <h3>
-                                                            <a href="#">{product.sell_product.product_name}</a>
-                                                        </h3>
-                                                        <p className="mb-0">{product.sell_product.product_description}</p>
-                                                        <p className="text-primary font-weight-bold">${product.sell_product.product_price}</p>
-                                                    </div>
+                                    {currentProducts.map((product) => (
+                                        <div
+                                            className="col-sm-6 col-lg-4 mb-4"
+                                            key={product.sell_product._id}
+                                        >
+                                            <div className="block-4 text-center border">
+                                                <figure className="block-4-image">
+                                                    <img
+                                                        src={`https://shohsulton.uz/api/images/${product.sell_product.product_image}`}
+                                                        alt="Product Image"
+                                                        className="img-fluid"
+                                                        style={{ height: '200px', objectFit: 'cover' }}
+
+                                                    />
+                                                </figure>
+                                                <div className="block-4-text p-4">
+                                                    <h3 className="block-4-title">
+                                                        <Link to={`/product/${product.sell_product._id}`}>
+                                                            {product.sell_product.product_name}
+                                                        </Link>
+                                                    </h3>
+                                                    <p className="block-4-description">
+                                                        {product.sell_product.product_description}
+                                                    </p>
+                                                    <p className="block-4-price">
+                                                        ${product.sell_product.product_price}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
-                                </Slider>
+                                    {/* Pagination */}
+                                    <nav className="pagination-container">
+                                        <ul className="pagination justify-content-center">
+                                            {Array.from({ length: totalPages }, (_, index) => (
+                                                <li
+                                                    className={`page-item ${currentPage === index + 1 ? 'active' : ''
+                                                        }`}
+                                                    key={index + 1}
+                                                >
+                                                    <button
+                                                        className="page-link"
+                                                        onClick={() => handlePageChange(index + 1)}
+                                                    >
+                                                        {index + 1}
+                                                    </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
