@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './style.css'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Index() {
     const [products, setProducts] = useState([]);
@@ -31,7 +31,7 @@ function Index() {
             setTotalPages(response.data.totalPages);
             setIsLoading(false);
         } catch (error) {
-            toast.error('Something is wrong', {
+            toast.error('Something went wrong', {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
@@ -39,8 +39,12 @@ function Index() {
 
     const filterProducts = async () => {
         try {
+            const url = token
+                ? 'https://shohsulton.uz/api/filter/products'
+                : 'https://shohsulton.uz/api/noauthfilter/products';
+
             const response = await axios.post(
-                'https://shohsulton.uz/api/filter/products',
+                url,
                 {
                     product_name: productName,
                 },
@@ -54,12 +58,14 @@ function Index() {
             setTotalPages(response.data.totalPages);
             setIsLoading(false);
         } catch (error) {
+            toast.error('Something went wrong', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     };
 
     const addToCart = (productId) => {
-        const storedToken = localStorage.getItem('token');
-        if (!storedToken) {
+        if (!token) {
             toast.error('Please login to add to cart', {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -68,7 +74,7 @@ function Index() {
 
         const config = {
             headers: {
-                Authorization: `Bearer ${storedToken}`,
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -85,8 +91,7 @@ function Index() {
     };
 
     const sellProduct = (productId) => {
-        const storedToken = localStorage.getItem('token');
-        if (!storedToken) {
+        if (!token) {
             toast.error('Please login to buy', {
                 position: toast.POSITION.TOP_RIGHT,
             });
@@ -95,7 +100,7 @@ function Index() {
 
         const config = {
             headers: {
-                Authorization: `Bearer ${storedToken}`,
+                Authorization: `Bearer ${token}`,
             },
         };
 
@@ -132,8 +137,8 @@ function Index() {
                     </figure>
                     <div className="block-4-text p-4">
                         <h3>
-                            <Link>{product.product_name}</Link>
-                            <p className='mx-5'>Count: {product.product_count}</p>
+                            <Link to={`/single/${product._id}`}>{product.product_name}</Link>
+                            <p className="mx-5">Count: {product.product_count}</p>
                         </h3>
                         <p className="mb-0">{product.product_description}</p>
                         <p className="text-primary font-weight-bold">${product.product_price}</p>
@@ -169,7 +174,6 @@ function Index() {
         ));
     };
 
-
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
@@ -203,19 +207,13 @@ function Index() {
             <nav aria-label="Page navigation">
                 <ul className="pagination justify-content-center">
                     <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button
-                            className="page-link"
-                            onClick={() => handlePageChange(currentPage - 1)}
-                        >
+                        <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
                             Previous
                         </button>
                     </li>
                     {pages}
                     <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                        <button
-                            className="page-link"
-                            onClick={() => handlePageChange(currentPage + 1)}
-                        >
+                        <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
                             Next
                         </button>
                     </li>
@@ -257,6 +255,7 @@ function Index() {
                     </div>
                 </div>
             </div>
+            {/* shohsulton */}
             <ToastContainer />
         </>
     );
