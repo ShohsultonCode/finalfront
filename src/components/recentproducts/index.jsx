@@ -25,31 +25,36 @@ const index = () => {
       fetchProducts();
    }, []);
 
-   useEffect(() => {
-      const fetchCartItems = () => {
-         const storedCartItems = localStorage.getItem('cartItems');
-         if (storedCartItems) {
-            setCartItems(JSON.parse(storedCartItems));
-         }
-      };
 
-      fetchCartItems();
-   }, []);
 
-   const addToCart = (product) => {
-      if (token) {
-         const updatedCartItems = [...cartItems, product];
-         setCartItems(updatedCartItems);
-         localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-         toast.success('Added to cart', {
-            position: toast.POSITION.TOP_RIGHT,
-         });
-      } else {
+
+   const addToCart = (productId) => {
+      const storedToken = localStorage.getItem('token');
+      if (!storedToken) {
          toast.error('Please login to add to cart', {
             position: toast.POSITION.TOP_RIGHT,
          });
+         return;
       }
+
+      const config = {
+         headers: {
+            Authorization: `Bearer ${storedToken}`,
+         },
+      };
+
+      axios
+         .post(`http://localhost:5000/api/addcart`, { cart_product: productId }, config)
+         .then((response) => {
+            toast.success('Product added to cart!');
+         })
+         .catch((error) => {
+            toast.error('Something went wrong', {
+               position: toast.POSITION.TOP_RIGHT,
+            });
+         });
    };
+
 
    const removeFromCart = (productId) => {
       const updatedCartItems = cartItems.filter((item) => item._id !== productId);
@@ -84,7 +89,7 @@ const index = () => {
                                  </h3>
                                  <p className="mb-0">{product.product_description}</p>
                                  <p className="text-primary font-weight-bold">${product.product_price}</p>
-                                 <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
+                                 <button className="btn btn-primary" onClick={() => addToCart(product._id)}>Add to Cart</button>
                               </div>
                            </div>
                         </div>

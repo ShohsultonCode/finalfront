@@ -42,6 +42,7 @@ const ProfilePage = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            console.log(response.data.status);
             setUser(response.data.data);
             setStatis(response.data.status);
         } catch (error) {
@@ -102,10 +103,9 @@ const ProfilePage = () => {
                                         <p className="small text-muted mb-0">All Sells</p>
                                     </div>
                                     <div className="px-3">
-                                        <p className="mb-1 h5">{statis.ownproduct.length}</p>
+                                        <p className="mb-1 h5">{statis.ownproducts}</p>
                                         <p className="small text-muted mb-0">Buy Products</p>
                                     </div>
-
 
                                 </div>
 
@@ -127,13 +127,15 @@ const ProfilePage = () => {
                                 <Slider {...settings}>
                                     {statis.ownproduct.map((product) => (
                                         <div key={product.id}>
-                                            <div className="item" key={product.sell_product._id}>
-                                                <div className="block-4 text-center">
+                                            <div className="col-sm-6 col-lg-4 mb-4" key={product.sell_product._id}>
+                                                <div className="block-4 text-center border">
                                                     <figure className="block-4-image">
                                                         <img
                                                             src={`https://shohsulton.uz/api/images/${product.sell_product.product_image}`}
                                                             alt="Product Image"
-                                                            className="block-4-img"
+                                                            className="img-fluid"
+                                                            style={{ height: '200px', objectFit: 'cover' }}
+
                                                         />
                                                     </figure>
                                                     <div className="block-4-text p-4">

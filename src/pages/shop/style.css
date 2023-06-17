@@ -40,3 +40,52 @@
 .float-right {
   float: right;
 }
+
+/* style.css */
+
+.block-4-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.block-4-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.block-4-image img:hover {
+  transform: scale(1.1);
+}
+
+.block-4-text {
+  position: relative;
+  z-index: 1;
+}
+
+.block-4-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.block-4-text p {
+  margin-bottom: 10px;
+}
+
+.block-4-text p.text-primary {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .block-4-image img {
+    transform: scale(1);
+    transition: none;
+  }
+
+  .block-4-image img:hover {
+    transform: scale(1);
+  }
+}

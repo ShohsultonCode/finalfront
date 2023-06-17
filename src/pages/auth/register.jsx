@@ -23,7 +23,6 @@ const RegisterPage = () => {
             const response = await axios.get("https://shohsulton.uz/api/categories");
             setCategories(response.data.data);
         } catch (error) {
-            console.error("Error fetching categories:", error);
         }
     };
     const handleInputChange = (event) => {

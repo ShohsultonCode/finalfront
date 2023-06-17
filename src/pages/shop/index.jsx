@@ -31,7 +31,9 @@ function Index() {
             setTotalPages(response.data.totalPages);
             setIsLoading(false);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            toast.error('Something is wrong', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     };
 
@@ -52,27 +54,16 @@ function Index() {
             setTotalPages(response.data.totalPages);
             setIsLoading(false);
         } catch (error) {
-            console.error('Error fetching products:', error);
         }
     };
 
     const addToCart = (productId) => {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const product = products.find((item) => item._id === productId);
-
-        if (product) {
-            cartItems.push(product);
-            localStorage.setItem('cartItems', JSON.stringify(cartItems));
-            toast.success('Product added to cart!');
-        }
-    };
-
-    const sellProduct = (productId) => {
         const storedToken = localStorage.getItem('token');
         if (!storedToken) {
             toast.error('Please login to add to cart', {
                 position: toast.POSITION.TOP_RIGHT,
             });
+            return;
         }
 
         const config = {
@@ -82,14 +73,40 @@ function Index() {
         };
 
         axios
-            .post(`https://shohsulton.uz/api/sell/${productId}`, null, config)
+            .post(`https://shohsulton.uz/api/addcart`, { cart_product: productId }, config)
+            .then((response) => {
+                toast.success('Product added to cart!');
+            })
+            .catch((error) => {
+                toast.error(`${error.response.data.message}`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            });
+    };
+
+    const sellProduct = (productId) => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            toast.error('Please login to buy', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            return;
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${storedToken}`,
+            },
+        };
+
+        axios
+            .post(`https://shohsulton.uz/api/sell/${productId}`, {}, config)
             .then((response) => {
                 toast.success('Success', {
                     position: toast.POSITION.TOP_RIGHT,
                 });
             })
             .catch((error) => {
-                // Handle the error
                 toast.error('Something went wrong', {
                     position: toast.POSITION.TOP_RIGHT,
                 });
@@ -152,6 +169,7 @@ function Index() {
         ));
     };
 
+
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
@@ -169,91 +187,74 @@ function Index() {
         }
     };
 
+    const renderPagination = () => {
+        if (!totalPages) return null;
+        const pages = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pages.push(
+                <li className={`page-item ${currentPage === i ? 'active' : ''}`} key={i}>
+                    <button className="page-link" onClick={() => handlePageChange(i)}>
+                        {i}
+                    </button>
+                </li>
+            );
+        }
+        return (
+            <nav aria-label="Page navigation">
+                <ul className="pagination justify-content-center">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                        <button
+                            className="page-link"
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >
+                            Previous
+                        </button>
+                    </li>
+                    {pages}
+                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                        <button
+                            className="page-link"
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                            Next
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        );
+    };
+
     return (
         <>
-            <div className="bg-light py-3">
+            <div className="site-section site-section-sm site-blocks-1">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-12 mb-0">
-                            <Link to="/">Home</Link> <span className="mx-2 mb-0">/</span>{' '}
-                            <strong className="text-black">Products</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="site-section">
-                <div className="container">
-                    <div className="row mb-5">
-                        <div className="col-md-12 text-center">
-                            <h2 className="section-title mb-3">Products</h2>
-                            <input
-                                placeholder="Search Product"
-                                type="text"
-                                className="form-control w-25"
-                                value={productName}
-                                onChange={handleSearch}
-                            />
-                        </div>
-                    </div>
-                    {isLoading ? (
-                        <div className="text-center loader-animation">Loading...</div>
-                    ) : (
-                        <>
-                            <div className="row">{renderProducts()}</div>
-                            {totalPages > 1 && (
-                                <div className="row" data-aos="fade-up">
-                                    <div className="col-md-12 text-center">
-                                        <div className="site-block-27">
-                                            <ul>
-                                                {currentPage > 1 && (
-                                                    <li>
-                                                        <Link
-                                                            to="#"
-                                                            onClick={() => handlePageChange(currentPage - 1)}
-                                                            style={{ transition: 'all 0.3s' }}
-                                                        >
-                                                            &lt;
-                                                        </Link>
-                                                    </li>
-                                                )}
-                                                {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
-                                                    <li
-                                                        key={number}
-                                                        className={currentPage === number ? 'active' : ''}
-                                                        style={{ transition: 'all 0.3s' }}
-                                                    >
-                                                        <Link
-                                                            to="#"
-                                                            onClick={() => {
-                                                                handlePageChange(number);
-                                                                setTimeout(() => {
-                                                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                                                }, 300);
-                                                            }}
-                                                        >
-                                                            {number}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                                {currentPage < totalPages && (
-                                                    <li>
-                                                        <Link
-                                                            to="#"
-                                                            onClick={() => handlePageChange(currentPage + 1)}
-                                                            style={{ transition: 'all 0.3s' }}
-                                                        >
-                                                            &gt;
-                                                        </Link>
-                                                    </li>
-                                                )}
-                                            </ul>
-                                        </div>
+                        <div className="col-lg-12">
+                            <div className="row">
+                                <div className="col">
+                                    <div className="form-inline">
+                                        <input
+                                            placeholder="Search Product"
+                                            type="text"
+                                            className="form-control w-25"
+                                            value={productName}
+                                            onChange={handleSearch}
+                                        />
                                     </div>
                                 </div>
-                            )}
-                        </>
-                    )}
+                            </div>
+                            <div className="row mt-3">
+                                {isLoading ? (
+                                    <div className="col text-center">Loading...</div>
+                                ) : (
+                                    renderProducts()
+                                )}
+                            </div>
+                            <div className="row mt-3">
+                                <div className="col text-center">{renderPagination()}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <ToastContainer />

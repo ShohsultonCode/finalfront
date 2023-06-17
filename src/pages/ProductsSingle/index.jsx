@@ -52,7 +52,6 @@ function SingleProduct() {
             });
             setProduct(response.data.data);
         } catch (error) {
-            console.error('Error fetching product:', error);
         }
     };
 
