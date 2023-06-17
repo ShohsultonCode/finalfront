@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 function SingleProduct() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
-    const token = localStorage.getItem('token');
     const storedToken = localStorage.getItem('token');
+
     const sellProduct = (productId) => {
         if (!storedToken) {
-            toast.error('Please login to add to cart', {
+            toast.error('Please login to buy the product', {
                 position: toast.POSITION.TOP_RIGHT,
             });
+            return;
         }
 
         const config = {
@@ -23,13 +25,44 @@ function SingleProduct() {
         axios
             .post(`https://shohsulton.uz/api/sell/${productId}`, null, config)
             .then((response) => {
-                toast.success('Success', {
+                toast.success('Product bought successfully', {
                     position: toast.POSITION.TOP_RIGHT,
                 });
             })
             .catch((error) => {
-                // Handle the error
-                toast.error('Something went wrong', {
+                toast.error(`${error.response.data.message}`, {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            });
+    };
+
+    const addToCart = (productId) => {
+        if (!storedToken) {
+            toast.error('Please login to add the product to the cart', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+            return;
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${storedToken}`,
+            },
+        };
+
+        axios
+            .post(
+                'https://shohsulton.uz/api/addcart',
+                { cart_product: productId },
+                config
+            )
+            .then((response) => {
+                toast.success('Product added to cart successfully', {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
+            })
+            .catch((error) => {
+                toast.error(`${error.response.data.message}`, {
                     position: toast.POSITION.TOP_RIGHT,
                 });
             });
@@ -41,36 +74,40 @@ function SingleProduct() {
 
     const fetchProduct = async () => {
         try {
-            const url = token
+            const url = storedToken
                 ? `https://shohsulton.uz/api/userproduct/${id}`
                 : `https://shohsulton.uz/api/noauthproduct/${id}`;
 
             const response = await axios.get(url, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${storedToken}`,
                 },
             });
             setProduct(response.data.data);
         } catch (error) {
+            toast.error('Something went wrong', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     };
 
-    const handleQuantityChange = (event) => {
-        setQuantity(parseInt(event.target.value));
-    };
-
     if (!product) {
-        return <div className="loading-container">
-            <div className="loading-text">Loading...</div>
-        </div>
+        return (
+            <div className="loading-container">
+                <div className="loading-text">Loading...</div>
+            </div>
+        );
     }
+
     return (
         <div>
+            <ToastContainer />
             <div className="bg-light py-3">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 mb-0">
-                            <Link to="/shop">Shop</Link> <span className="mx-2 mb-0">/</span>{' '}
+                            <Link to="/shop">Shop</Link>{' '}
+                            <span className="mx-2 mb-0">/</span>{' '}
                             <strong className="text-black">{product.product_name}</strong>
                         </div>
                     </div>
@@ -95,16 +132,20 @@ function SingleProduct() {
                                 <strong className="text-primary h4">${product.product_price}</strong>
                             </p>
                             <p>
-
-                                <button className="buy-now btn btn-sm btn-primary">
+                                <button
+                                    className="buy-now btn btn-sm btn-primary"
+                                    onClick={() => addToCart(product._id)}
+                                >
                                     Add To Cart
                                 </button>
                             </p>
-                            <button className="btn btn-primary btn-sm" onClick={() => sellProduct(product._id)}>
+                            <button
+                                className="btn btn-primary btn-sm"
+                                onClick={() => sellProduct(product._id)}
+                            >
                                 Buy
                             </button>
                         </div>
-
                     </div>
                 </div>
             </div>

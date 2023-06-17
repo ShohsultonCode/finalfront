@@ -12,6 +12,7 @@ import FeaturedProducts from './components/recentproducts';
 import CategorisAuth from './components/categories';
 import SingleProduct from './pages/ProductsSingle';
 import UpdatePage from './pages/editprofile';
+import ContactPage from './pages/contact';
 
 const App = () => {
   return (
@@ -25,9 +26,13 @@ const App = () => {
         <Route path="/update/profile" element={<UpdatePage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/mycategories" element={<CategorisAuth />} />
         <Route path="/recent/products" element={<FeaturedProducts />} />
         <Route path="/single/:id" element={<SingleProduct />} />
+
+
+
       </Routes>
       <Footer />
     </div>

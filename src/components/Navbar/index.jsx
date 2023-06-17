@@ -60,7 +60,7 @@ const Header = () => {
                            </li>
                            <li><Link to="/shop">Shop</Link></li>
                            <li><Link to="/mycategories">Categories Settings</Link></li>
-                           <li><Link to="/add/product">Contact</Link></li>
+                           <li><Link to="/contact">Contact</Link></li>
                         </ul>
                      )
                         : (
@@ -70,7 +70,7 @@ const Header = () => {
                               </li>
                               <li><Link to="/shop">Shop</Link></li>
                               <li><Link to="/mycategories">Categories</Link></li>
-                              <li><Link to="/add/product">Contact</Link></li>
+                              <li><Link to="/contact">Contact</Link></li>
                            </ul>
                         )
                   }
