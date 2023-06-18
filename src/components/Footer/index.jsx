@@ -59,7 +59,6 @@ const Footer = () => {
                         <label htmlFor="email_subscribe" className="footer-heading">Subscribe</label>
                         <div className="form-group">
                            <input type="text" className="form-control py-4" id="email_subscribe" placeholder="Email" />
-                           <input type="button" className="btn btn-sm btn-primary" />
                            {/* ///easdfghjkssss? */}
                         </div>
                      </form>
