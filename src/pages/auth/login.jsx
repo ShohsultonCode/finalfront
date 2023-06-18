@@ -28,7 +28,7 @@ const LoginPage = () => {
 
             setTimeout(() => {
                 if (response.data.role === "admin") {
-                    window.location.href = 'http://localhost:5174';
+                    window.location.href = '/dashboard';
                 } else if (response.data.role === "user") {
                     window.location.href = '/'
                 }

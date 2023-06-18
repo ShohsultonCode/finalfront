@@ -11,7 +11,7 @@ import axios from 'axios';
 const CollectionsSection = () => {
 
     const [categories, setCategories] = useState([]);
-
+    const token = localStorage.getItem('token');
     useEffect(() => {
         fetchCategories();
     }, []);
