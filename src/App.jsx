@@ -67,15 +67,17 @@ const App = () => {
       ) : user && user === 'admin' ? (
         <div className='layout'>
           <Sidebar />
+          {/* Routes ss  */}
           <div className='content'>
             <Routes>
+              {/* ///s */}
               <Route path='/dashboard' element={<Dashboard />} />
+              <Route path='/' element={<Dashboard />} />
               <Route path='/products' element={<Products />} />
               <Route path='/product/:id' element={<UpdateProduct />} />
               <Route path='/add/product' element={<AddProduct />} />
               <Route path='/sells' element={<Sells />} />
               <Route path='*' element={<Private />} />
-
             </Routes>
           </div>
         </div>
