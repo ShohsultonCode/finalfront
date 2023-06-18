@@ -74,6 +74,8 @@ const App = () => {
               <Route path='/product/:id' element={<UpdateProduct />} />
               <Route path='/add/product' element={<AddProduct />} />
               <Route path='/sells' element={<Sells />} />
+              <Route path='*' element={<Private />} />
+
             </Routes>
           </div>
         </div>

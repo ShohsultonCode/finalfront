@@ -52,7 +52,6 @@ const UpdateProduct = () => {
             // Handle success or redirect to another page
 
         } catch (error) {
-            console.log(error);
             toast.error("Failed to update product");
             // Handle error
         }

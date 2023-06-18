@@ -30,7 +30,6 @@ const Index = () => {
                 setTotalPages(response.data.totalPages);
             }
         } catch (error) {
-            console.log("Error fetching data:", error);
         }
     };
 

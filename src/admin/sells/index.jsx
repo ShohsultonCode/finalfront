@@ -11,7 +11,6 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
-
     const fetchData = async () => {
         try {
             const response = await axios.get("https://shohsulton.uz/api/dashboard", {
@@ -21,11 +20,12 @@ const Dashboard = () => {
             });
             setData(response.data.data);
         } catch (error) {
-            console.log("Error fetching data:", error);
         }
+
     };
+
     return (
-        <>
+        <div>
             <div className="dashboard-containers">
                 <h1>Welcome to the Dashboard</h1>
                 <div className="containers gap-5 mt-5">
@@ -44,7 +44,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <Users />
-        </>
+        </div>
     );
 };
 

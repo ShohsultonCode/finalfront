@@ -29,7 +29,6 @@ const Products = () => {
                 setLoading(false); // Set loading to false after data is fetched
             }
         } catch (error) {
-            console.log("Error fetching data:", error);
             setLoading(false); // Set loading to false in case of an error
         }
     };
@@ -39,8 +38,6 @@ const Products = () => {
     };
 
     const handleUpdate = (productId) => {
-        // Logic to open the form for the product and handle the update operation
-        console.log("Update product with ID:", productId);
     };
 
     const handleDelete = async (productId) => {
@@ -56,6 +53,7 @@ const Products = () => {
                 toast.success('Success to remove porudct');
                 fetchData(); // Fetch data again to reflect the updated list
             }
+
         } catch (error) {
             toast.error('Failed to remove porudct');
         }

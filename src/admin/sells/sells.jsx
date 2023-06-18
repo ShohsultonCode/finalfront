@@ -36,7 +36,6 @@ const Products = () => {
                 setLoading(false); // Set loading to false after data is fetched
             }
         } catch (error) {
-            console.log("Error fetching data:", error);
             setLoading(false); // Set loading to false in case of an error
         }
     };
