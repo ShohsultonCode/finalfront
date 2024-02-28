@@ -23,7 +23,7 @@ const categorisAuth = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('https://shohsulton.uz/api/categories');
+            const response = await axios.get('http://localhost:5000/api/categories');
             setCategories(response.data.data);
             setIsLoading(false);
         } catch (error) {
@@ -35,7 +35,7 @@ const categorisAuth = () => {
 
     const fetchAuthCategories = async () => {
         try {
-            const response = await axios.get('https://shohsulton.uz/api/owncategories', {
+            const response = await axios.get('http://localhost:5000/api/owncategories', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -52,7 +52,7 @@ const categorisAuth = () => {
     const handleClick = async (categoryId) => {
         try {
             const response = await axios.put(
-                `https://shohsulton.uz/api/updateowncategories/${categoryId}`,
+                `http://localhost:5000/api/updateowncategories/${categoryId}`,
                 {},
                 {
                     headers: {
@@ -95,7 +95,7 @@ const categorisAuth = () => {
                                     <Link className="block-2-item" to="#">
                                         <figure className="image">
                                             <img
-                                                src={`https://shohsulton.uz/api/images/${category.category.category_image}`}
+                                                src={`http://localhost:5000/api/images/${category.category.category_image}`}
                                                 alt=""
                                                 className="img-fluid"
                                             />
@@ -133,7 +133,7 @@ const categorisAuth = () => {
                                     <Link className="block-2-item" to="#">
                                         <figure className="image">
                                             <img
-                                                src={`https://shohsulton.uz/api/images/${category.category_image}`}
+                                                src={`http://localhost:5000/api/images/${category.category_image}`}
                                                 alt=""
                                                 className="img-fluid"
                                             />

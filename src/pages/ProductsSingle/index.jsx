@@ -23,7 +23,7 @@ function SingleProduct() {
         };
 
         axios
-            .post(`https://shohsulton.uz/api/sell/${productId}`, null, config)
+            .post(`http://localhost:5000/api/sell/${productId}`, null, config)
             .then((response) => {
                 toast.success('Product bought successfully', {
                     position: toast.POSITION.TOP_RIGHT,
@@ -52,7 +52,7 @@ function SingleProduct() {
 
         axios
             .post(
-                'https://shohsulton.uz/api/addcart',
+                'http://localhost:5000/api/addcart',
                 { cart_product: productId },
                 config
             )
@@ -75,8 +75,8 @@ function SingleProduct() {
     const fetchProduct = async () => {
         try {
             const url = storedToken
-                ? `https://shohsulton.uz/api/userproduct/${id}`
-                : `https://shohsulton.uz/api/noauthproduct/${id}`;
+                ? `http://localhost:5000/api/userproduct/${id}`
+                : `http://localhost:5000/api/noauthproduct/${id}`;
 
             const response = await axios.get(url, {
                 headers: {
@@ -119,7 +119,7 @@ function SingleProduct() {
                     <div className="row">
                         <div className="col-md-6">
                             <img
-                                src={`https://shohsulton.uz/api/images/${product.product_image}`}
+                                src={`http://localhost:5000/api/images/${product.product_image}`}
                                 alt="Image"
                                 className="img-fluid"
                             />

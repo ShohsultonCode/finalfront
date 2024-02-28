@@ -23,7 +23,7 @@ const AddProduct = () => {
     const fetchProductCategories = async () => {
         try {
             const response = await axios.get(
-                "https://shohsulton.uz/api/categories",
+                "http://localhost:5000/api/categories",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ const AddProduct = () => {
             formDataToSend.append("product_image", formData.product_image);
 
             const response = await axios.post(
-                "https://shohsulton.uz/api/addproducts",
+                "http://localhost:5000/api/addproducts",
                 formDataToSend,
                 {
                     headers: {

@@ -22,8 +22,8 @@ const Products = () => {
                 setLoading(true); // Set loading to true before fetching data
                 const url =
                     currentPage === 1
-                        ? "https://shohsulton.uz/api/dsellpagination"
-                        : `https://shohsulton.uz/api/sellpagination/${currentPage}`;
+                        ? "http://localhost:5000/api/dsellpagination"
+                        : `http://localhost:5000/api/sellpagination/${currentPage}`;
 
                 const response = await axios.get(url, {
                     headers: {
@@ -85,12 +85,12 @@ const Products = () => {
                                 <tr key={sell._id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>
-                                        <img className="userimage" src={`https://shohsulton.uz/api/images/${sell.sell_user.user_image}`} alt="sell" />
+                                        <img className="userimage" src={`http://localhost:5000/api/images/${sell.sell_user.user_image}`} alt="sell" />
                                     </td>
                                     <td>${sell.sell_price}</td>
                                     <td>{sell.sell_product_count}</td>
                                     <td>
-                                        <img className="userimage" src={`https://shohsulton.uz/api/images/${sell.sell_product.product_image}`} alt="sell" />
+                                        <img className="userimage" src={`http://localhost:5000/api/images/${sell.sell_product.product_image}`} alt="sell" />
                                     </td>
                                 </tr>
                             ))}

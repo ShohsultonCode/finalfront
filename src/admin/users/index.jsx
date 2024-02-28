@@ -17,8 +17,8 @@ const Index = () => {
             if (token) {
                 const url =
                     currentPage === 1
-                        ? "https://shohsulton.uz/api/duserpagination"
-                        : `https://shohsulton.uz/api/userpagination/${currentPage}`;
+                        ? "http://localhost:5000/api/duserpagination"
+                        : `http://localhost:5000/api/userpagination/${currentPage}`;
 
                 const response = await axios.get(url, {
                     headers: {
@@ -76,7 +76,7 @@ const Index = () => {
                                 <td>
                                     <img
                                         className="userimage"
-                                        src={`https://shohsulton.uz/api/images/${user.user_image}`}
+                                        src={`http://localhost:5000/api/images/${user.user_image}`}
                                         alt="User"
                                     />
                                 </td>

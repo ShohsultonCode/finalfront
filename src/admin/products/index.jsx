@@ -19,7 +19,7 @@ const Products = () => {
         try {
             if (token) {
                 setLoading(true); // Set loading to true before fetching data
-                const response = await axios.get(`https://shohsulton.uz/api/productspagination/${currentPage}`, {
+                const response = await axios.get(`http://localhost:5000/api/productspagination/${currentPage}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -44,7 +44,7 @@ const Products = () => {
         // Logic to handle the delete operation
         try {
             if (token) {
-                await axios.delete(`https://shohsulton.uz/api/product/${productId}`, {
+                await axios.delete(`http://localhost:5000/api/product/${productId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -106,7 +106,7 @@ const Products = () => {
                                     <td>${product.product_price}</td>
                                     <td>{product.product_count}</td>
                                     <td>
-                                        <img className="userimage" src={`https://shohsulton.uz/api/images/${product.product_image}`} alt="product" />
+                                        <img className="userimage" src={`http://localhost:5000/api/images/${product.product_image}`} alt="product" />
                                     </td>
                                     <td>
                                         <Link to={`/product/${product._id}`} className="icon-button" onClick={() => handleUpdate(product._id)}>

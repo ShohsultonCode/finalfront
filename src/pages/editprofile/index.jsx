@@ -57,7 +57,7 @@ const UpdatePage = () => {
         try {
             const token = localStorage.getItem("token");
             const response = await axios.put(
-                "https://shohsulton.uz/api/auth/update",
+                "http://localhost:5000/api/auth/update",
                 updatedFormData,
                 {
                     headers: {

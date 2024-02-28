@@ -40,7 +40,7 @@ const ProfilePage = () => {
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get('https://shohsulton.uz/api/user', {
+            const response = await axios.get('http://localhost:5000/api/user', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -85,7 +85,7 @@ const ProfilePage = () => {
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                                     <img
-                                        src={`https://shohsulton.uz/api/images/${user.user_image}`}
+                                        src={`http://localhost:5000/api/images/${user.user_image}`}
                                         alt="Generic placeholder image"
                                         className="img-fluid img-thumbnail mt-4 mb-2"
                                         style={{ width: '150px', zIndex: 1 }}
@@ -141,7 +141,7 @@ const ProfilePage = () => {
                                             <div className="block-4 text-center border">
                                                 <figure className="block-4-image">
                                                     <img
-                                                        src={`https://shohsulton.uz/api/images/${product.sell_product.product_image}`}
+                                                        src={`http://localhost:5000/api/images/${product.sell_product.product_image}`}
                                                         alt="Product Image"
                                                         className="img-fluid"
                                                         style={{ height: '200px', objectFit: 'cover' }}

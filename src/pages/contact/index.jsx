@@ -37,7 +37,7 @@ const ContactPage = () => {
         }
 
         try {
-            const response = await axios.post('https://shohsulton.uz/api/contact', formData);
+            const response = await axios.post('http://localhost:5000/api/contact', formData);
             toast.success(`${response.data.message}`);
 
             // Handle success or show a success message

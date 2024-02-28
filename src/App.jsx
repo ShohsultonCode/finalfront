@@ -33,7 +33,7 @@ const App = () => {
   const fetchUser = async () => {
     try {
       if (token) {
-        const response = await axios.get('https://shohsulton.uz/api/auth/profile', {
+        const response = await axios.get('http://localhost:5000/api/auth/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

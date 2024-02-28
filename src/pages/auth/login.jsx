@@ -19,7 +19,7 @@ const LoginPage = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post("https://shohsulton.uz/api/auth/login", formData);
+            const response = await axios.post("http://localhost:5000/api/auth/login", formData);
             // Handle the response as needed
             localStorage.setItem("token", response.data.token);
             toast.success(`Login successful`, {

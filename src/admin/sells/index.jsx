@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("https://shohsulton.uz/api/dashboard", {
+            const response = await axios.get("http://localhost:5000/api/dashboard", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

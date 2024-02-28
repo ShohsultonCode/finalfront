@@ -20,7 +20,7 @@ const Cart = () => {
 
    const fetchCartItems = async (token) => {
       try {
-         const response = await axios.get('https://shohsulton.uz/api/allcarts', {
+         const response = await axios.get('http://localhost:5000/api/allcarts', {
             headers: {
                'Authorization': `Bearer ${token}`,
             },
@@ -45,7 +45,7 @@ const Cart = () => {
       }
 
       try {
-         const response = await axios.delete(`https://shohsulton.uz/api/removecart/${productId}`, {
+         const response = await axios.delete(`http://localhost:5000/api/removecart/${productId}`, {
             headers: {
                'Authorization': `Bearer ${storedToken}`,
             },
@@ -94,7 +94,7 @@ const Cart = () => {
          const buyRequests = cartItems.map((item) => {
             const productCount = parseInt(item.cart_product.product_count);
             return axios.post(
-               'https://shohsulton.uz/api/buycart',
+               'http://localhost:5000/api/buycart',
                {
                   buy_product: [
                      {
@@ -179,7 +179,7 @@ const Cart = () => {
                                           <tr key={item.cart_product._id}>
                                              <td className="product-thumbnail">
                                                 <img
-                                                   src={`https://shohsulton.uz/api/images/${item.cart_product.product_image}`}
+                                                   src={`http://localhost:5000/api/images/${item.cart_product.product_image}`}
                                                    alt="Product Image"
                                                    className="img-fluid"
                                                 />

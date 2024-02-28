@@ -39,7 +39,7 @@ const UpdateProduct = () => {
             formDataToSend.append("product_image", formData.product_image);
 
             const response = await axios.put(
-                `https://shohsulton.uz/api/product/${productId}`,
+                `http://localhost:5000/api/product/${productId}`,
                 formDataToSend,
                 {
                     headers: {

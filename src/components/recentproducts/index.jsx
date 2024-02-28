@@ -12,7 +12,7 @@ const index = () => {
    useEffect(() => {
       const fetchProducts = async () => {
          try {
-            const response = await axios.get('https://shohsulton.uz/api/lastproducts');
+            const response = await axios.get('http://localhost:5000/api/lastproducts');
             const data = response.data.data;
             setProducts(data);
          } catch (error) {
@@ -44,7 +44,7 @@ const index = () => {
       };
 
       axios
-         .post(`https://shohsulton.uz/api/addcart`, { cart_product: productId }, config)
+         .post(`http://localhost:5000/api/addcart`, { cart_product: productId }, config)
          .then((response) => {
             toast.success('Product added to cart!');
          })
@@ -78,7 +78,7 @@ const index = () => {
                            <div className="block-4-image">
                               <figure className="block-4-image">
                                  <img
-                                    src={`https://shohsulton.uz/api/images/${product.product_image}`}
+                                    src={`http://localhost:5000/api/images/${product.product_image}`}
                                     alt="Product Image"
                                     style={{ height: '200px', objectFit: 'cover' }}
                                     className="img-fluid"

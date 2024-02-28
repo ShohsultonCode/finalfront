@@ -18,7 +18,7 @@ const CollectionsSection = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('https://shohsulton.uz/api/categories');
+            const response = await axios.get('http://localhost:5000/api/categories');
             setCategories(response.data.data);
         } catch (error) {
             toast.error('Something went wrong', {
@@ -90,7 +90,7 @@ const CollectionsSection = () => {
                             >
                                 <Link className="block-2-item" to="#">
                                     <figure className="image">
-                                        <img src={`https://shohsulton.uz/api/images/${category.category_image}`} alt="" className="img-fluid" />
+                                        <img src={`http://localhost:5000/api/images/${category.category_image}`} alt="" className="img-fluid" />
                                     </figure>
                                     <div className="text">
                                         <span className="text-uppercase">Collections</span>

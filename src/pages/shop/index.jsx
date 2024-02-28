@@ -19,8 +19,8 @@ function Index() {
     const fetchProducts = async () => {
         try {
             const url = token
-                ? `https://shohsulton.uz/api/productspagination/${currentPage}`
-                : `https://shohsulton.uz/api/pacepagination/${currentPage}`;
+                ? `http://localhost:5000/api/productspagination/${currentPage}`
+                : `http://localhost:5000/api/pacepagination/${currentPage}`;
 
             const response = await axios.get(url, {
                 headers: {
@@ -38,8 +38,8 @@ function Index() {
     const filterProducts = async () => {
         try {
             const url = token
-                ? 'https://shohsulton.uz/api/filter/products'
-                : 'https://shohsulton.uz/api/noauthfilter/products';
+                ? 'http://localhost:5000/api/filter/products'
+                : 'http://localhost:5000/api/noauthfilter/products';
 
             const response = await axios.post(
                 url,
@@ -75,7 +75,7 @@ function Index() {
         };
 
         axios
-            .post(`https://shohsulton.uz/api/addcart`, { cart_product: productId }, config)
+            .post(`http://localhost:5000/api/addcart`, { cart_product: productId }, config)
             .then((response) => {
                 toast.success('Product added to cart!');
             })
@@ -102,7 +102,7 @@ function Index() {
         };
 
         axios
-            .post(`https://shohsulton.uz/api/sell/${productId}`, {}, config)
+            .post(`http://localhost:5000/api/sell/${productId}`, {}, config)
             .then((response) => {
                 toast.success('Success', {
                     position: toast.POSITION.TOP_RIGHT,
@@ -125,7 +125,7 @@ function Index() {
                     <figure className="block-4-image">
                         <Link to={`/single/${product._id}`}>
                             <img
-                                src={`https://shohsulton.uz/api/images/${product.product_image}`}
+                                src={`http://localhost:5000/api/images/${product.product_image}`}
                                 alt="Image placeholder"
                                 className="img-fluid"
                                 style={{ height: '200px', objectFit: 'cover' }}
